@@ -2,6 +2,7 @@ package application;
 
 import entities.JoKenPo;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -17,10 +18,19 @@ public class Program {
         do {
             joKenPo.showOptions();
             joKenPo.setPc(random.nextInt(joKenPo.getOptions().length));
-            joKenPo.setPlayer(scanner.nextInt());
+            try {
+                joKenPo.setPlayer(scanner.nextInt());
+            } catch (InputMismatchException e) {
+                scanner.next();
+                IO.println("*** INVALID OPTION");
+            }
             joKenPo.showWin();
             joKenPo.nextGameQuestion();
-            joKenPo.setNextGame(scanner.nextBoolean());
+            try {
+                joKenPo.setNextGame(scanner.nextBoolean());
+            } catch (InputMismatchException e) {
+                joKenPo.setNextGame(false);
+            }
         } while (joKenPo.getNextGame() == true);
         joKenPo.showHome();
         scanner.close();

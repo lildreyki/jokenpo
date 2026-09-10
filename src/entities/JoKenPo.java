@@ -36,6 +36,9 @@ public class JoKenPo {
     }
 
     public void setPlayer(Integer player) {
+        if (player < 0 || player >= options.length) {
+            IO.println("*** INVALID OPTION");
+        }
         this.player = player;
     }
 
@@ -64,9 +67,13 @@ public class JoKenPo {
     }
 
     public void showWin() {
-        IO.println("\n*** PLAYER: " + options[player]);
-        IO.println("*** PC: " + options[pc]);
-        win();
+        try {
+            IO.println("\n*** PLAYER: " + options[player]);
+            IO.println("*** PC: " + options[pc]);
+            win();
+        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NullPointerException e) {
+        }
     }
 
     private void win() {
